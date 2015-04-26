@@ -7,6 +7,34 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    - flash.each do |key, value|
-      = content_tag :div, value
-    = yield
+    %nav.navbar.navbar-default{:role => "navigation"}
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to 'Vault', root_path, class: 'navbar-brand'
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li
+              = link_to '#' do
+                %i.glyphicon.glyphicon-list-alt
+                &nbsp;
+                Credentials
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              = link_to logout_path, method: :delete do
+                %i.glyphicon.glyphicon-off
+                Sign out
+
+    .container
+      .row
+        .span12
+          - flash.each do |key, value|
+            = content_tag :div, value
+          = yield
+
+      %footer
+        %p &copy; Vault 2015
