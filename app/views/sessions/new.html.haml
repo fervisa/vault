@@ -1,5 +1,8 @@
+%h1.text-center
+  %i.glyphicon.glyphicon-lock
+
 = simple_form_for @user, url: do_login_path, method: :post do |f|
   = f.input :email
   = f.input :password
 
-  = f.submit 'Log in'
+  = f.submit 'Log in', class: 'btn btn-primary btn-block'
