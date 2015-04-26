@@ -45,6 +45,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
+  gem 'launchy'
 
   gem 'pry'
 
