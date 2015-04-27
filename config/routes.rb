@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :credentials
+  resources :credentials do
+    post :test, on: :member
+  end
+
   get "sessions/new", to: "sessions#new", as: "login"
   post "sessions/create", to: "sessions#create", as: "do_login"
   delete "sessions/destroy", to: "sessions#destroy", as: "logout"

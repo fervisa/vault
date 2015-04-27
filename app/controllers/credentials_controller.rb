@@ -1,6 +1,6 @@
 class CredentialsController < ApplicationController
   before_action :authenticate!
-  before_action :set_credential, only: [:show, :edit, :update, :destroy]
+  before_action :set_credential, only: [:show, :edit, :update, :destroy, :test]
 
   # GET /credentials
   # GET /credentials.json
@@ -36,6 +36,15 @@ class CredentialsController < ApplicationController
         format.json { render json: @credential.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def test
+    if @credential.authenticate params[:credential][:password]
+      flash[:success] = "The provided password is correct"
+    else
+      flash[:error] = "The provided password is incorrect"
+    end
+    render 'show'
   end
 
   # PATCH/PUT /credentials/1

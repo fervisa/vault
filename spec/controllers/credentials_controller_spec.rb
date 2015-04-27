@@ -61,6 +61,43 @@ RSpec.describe CredentialsController, type: :controller do
     end
   end
 
+  describe "POST #test" do
+    let(:credential) { FactoryGirl.create :credential, valid_new_attributes }
+
+    it "assigns the requested credential as @credential" do
+      post :test, id: credential.id, credential: { password: 'abc123' }
+      expect(assigns(:credential)).to eq(credential)
+    end
+
+    context "correct credentials" do
+      before :each do
+        post :test, id: credential.id, credential: { password: 'abc123' }
+      end
+
+      it "loads a success message" do
+        expect(flash[:success]).to match /The provided password is correct/
+      end
+
+      it "renders 'show' view" do
+        expect(response).to render_template :show
+      end
+    end
+
+    context "incorrect credentials" do
+      before :each do
+        post :test, id: credential.id, credential: { password: 'abc123x' }
+      end
+
+      it "loads an error message" do
+        expect(flash[:error]).to match /The provided password is incorrect/
+      end
+
+      it "renders 'show' view" do
+        expect(response).to render_template :show
+      end
+    end
+  end
+
   describe "GET #new" do
     it "assigns a new credential as @credential" do
       get :new, {}, valid_session
